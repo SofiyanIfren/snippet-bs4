@@ -77,3 +77,26 @@ nissab_argent = float(gramme_argent_float) * 595
 
 print (round(nissab_or, 2))
 print (round(nissab_argent, 2))
+
+##############################################################################
+##############################################################################
+##############################################################################
+# In Python 3, you can use the sep= and end= parameters of the print function:
+# To not add a newline to the end of the string:
+# print('.', end='')
+# To not add a space between all the function arguments you want to print:
+# print('a', 'b', 'c', sep='')
+url = "https://fr.wikipedia.org/wiki/Liste_des_califes"
+req = requests.get(url)
+
+page = req.text
+soup = BeautifulSoup(page, "lxml")
+myDiv = soup.find("div", {"id": "mw-content-text"})
+myTr = myDiv.select("div > table > tbody > tr")
+for i in myTr:
+	if (len(i) > 4):
+		if (i.find("th") != None and i.find("th").attrs.get("class") != "navbox-group"):
+			print("", end='')
+		else:
+			print(i.text, end='')
+		print("**************************************************************")
